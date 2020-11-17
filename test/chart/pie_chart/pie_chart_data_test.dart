@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import '../data_pool.dart';
 
 void main() {
@@ -109,6 +110,12 @@ void main() {
     });
 
     test('PieChartSectionData equality test', () {
+      final Widget _badge = Container(
+        color: Colors.green,
+        width: 20,
+        height: 20,
+      );
+
       final PieChartSectionData sample1 = PieChartSectionData(
         color: Colors.red,
         radius: 12,
@@ -116,7 +123,9 @@ void main() {
         value: 33,
         title: 'testTitle',
         titlePositionPercentageOffset: 10,
-        titleStyle: TextStyle(color: Colors.green),
+        titleStyle: const TextStyle(color: Colors.green),
+        badgeWidget: _badge,
+        badgePositionPercentageOffset: 10,
       );
 
       final PieChartSectionData sample2 = PieChartSectionData(
@@ -126,7 +135,9 @@ void main() {
         value: 33,
         title: 'testTitle',
         titlePositionPercentageOffset: 10,
-        titleStyle: TextStyle(color: Colors.green),
+        titleStyle: const TextStyle(color: Colors.green),
+        badgeWidget: _badge,
+        badgePositionPercentageOffset: 10,
       );
 
       expect(sample1 == sample2, true);
@@ -146,6 +157,28 @@ void main() {
       expect(sample1 == sample2.copyWith(titlePositionPercentageOffset: 4314), false);
 
       expect(
+        sample1 ==
+            sample2.copyWith(
+              badgeWidget: _badge,
+            ),
+        true,
+      );
+
+      expect(
+        sample1 ==
+            sample2.copyWith(
+              badgeWidget: Container(
+                color: Colors.blue,
+                width: 25,
+                height: 25,
+              ),
+            ),
+        false,
+      );
+
+      expect(sample1 == sample2.copyWith(badgePositionPercentageOffset: 4314), false);
+
+      expect(
           sample1 ==
               PieChartSectionData(
                 color: Colors.red,
@@ -155,10 +188,16 @@ void main() {
                 title: 'testTitle',
                 titlePositionPercentageOffset: 10,
                 titleStyle: null,
+                badgeWidget: Container(
+                  color: Colors.green,
+                  width: 20,
+                  height: 20,
+                ),
+                badgePositionPercentageOffset: 10,
               ),
           false);
 
-      expect(sample1 == sample2.copyWith(titleStyle: TextStyle(color: Colors.green)), true);
+      expect(sample1 == sample2.copyWith(titleStyle: const TextStyle(color: Colors.green)), true);
 
       expect(
           sample1 == sample2.copyWith(titleStyle: TextStyle(color: Colors.green.withOpacity(0.3))),
