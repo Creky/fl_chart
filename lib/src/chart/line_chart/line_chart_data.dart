@@ -107,9 +107,9 @@ class LineChartData extends AxisChartData with EquatableMixin {
   ) {
     for (int i = 0; i < lineBarsData.length; i++) {
       final LineChartBarData lineBarChart = lineBarsData[i];
-      if (lineBarChart.spots == null || lineBarChart.spots.isEmpty) {
+      /*if (lineBarChart.spots == null || lineBarChart.spots.isEmpty) {
         throw Exception('spots could not be null or empty');
-      }
+      }*/
     }
     if (lineBarsData.isNotEmpty) {
       final canModifyMinX = minX == null;
@@ -143,9 +143,9 @@ class LineChartData extends AxisChartData with EquatableMixin {
     }
 
     super.minX = minX ?? 0;
-    super.maxX = maxX ?? 1;
+    super.maxX = maxX ?? 100;
     super.minY = minY ?? 0;
-    super.maxY = maxY ?? 1;
+    super.maxY = maxY ?? 10;
   }
 
   /// Lerps a [BaseChartData] based on [t] value, check [Tween.lerp].
